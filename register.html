@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register for Tour</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+      }
+      .container {
+        padding: 20px;
+        max-width: 1500px;
+        margin: 0 auto;
+      }
+      h1 {
+        color: #333;
+      }
+      form {
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      label {
+        display: block;
+        margin-bottom: 10px;
+        color: #333;
+      }
+      input,
+      select,
+      checkbox {
+        width: calc(100% - 20px);
+        padding: 8px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+      button {
+        width: 100%;
+        padding: 10px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #0056b3;
+      }
+      footer {
+        text-align: center;
+        margin-top: 20px;
+      }
+      .checkbox-cover {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: row;
+      }
+      #join-land {
+        width: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>ลงทะเบียนจองทัวร์ท่องเที่ยว</h1>
+      <form id="tourForm" onsubmit="return validateForm()">
+        <label for="tour-group">ประเภทกลุ่มทัวร์</label>
+        <select id="tour-group" name="tour-group">
+          <option value="small">กลุ่มเล็ก (10 – 15 คน)</option>
+          <option value="standard">กลุ่มมาตรฐาน (35-40 คน)</option>
+        </select>
+
+        <label for="join-land">
+          <input type="checkbox" id="join-land" name="join-land" />
+          ซื้อบัตรโดยสารเครื่องบินเอง (Join Land)
+        </label>
+
+        <label for="num-people">จำนวนผู้ร่วมเดินทาง</label>
+        <input
+          type="number"
+          id="num-people"
+          name="num-people"
+          min="1"
+          max="15"
+          required
+        />
+
+        <label for="contact-name">ชื่อผู้ติดต่อ</label>
+        <input type="text" id="contact-name" name="contact-name" required />
+
+        <label for="contact-phone">เบอร์ผู้ติดต่อ</label>
+        <input type="tel" id="contact-phone" name="contact-phone" required />
+
+        <button type="submit">ลงทะเบียน</button>
+      </form>
+
+      <footer>
+        <p>รหัสนิสิต: 6432082321 | ชื่อ: นนทพันธุ์ สิทธิโชติเลิศภักดี</p>
+      </footer>
+    </div>
+
+    <script>
+      function validateForm() {
+        // ตรวจสอบว่าชื่อผู้ติดต่อและเบอร์ผู้ติดต่อไม่เป็นค่าว่าง
+        var contactName = document.getElementById("contact-name").value;
+        var contactPhone = document.getElementById("contact-phone").value;
+        var numPeople = document.getElementById("num-people").value;
+        var joinLand = document.getElementById("join-land").checked;
+
+        if (!contactName || !contactPhone) {
+          alert("ชื่อผู้ติดต่อและเบอร์ผู้ติดต่อห้ามเป็นค่าว่าง");
+          return false;
+        }
+
+        // ตรวจสอบจำนวนผู้ร่วมเดินทางว่าต้องอยู่ในช่วง 1 ถึง 15
+        if (numPeople < 1 || numPeople > 15) {
+          alert("จำนวนผู้ร่วมเดินทางต้องอยู่ระหว่าง 1 ถึง 15 คน");
+          return false;
+        }
+
+        // ตรวจสอบว่ามีการเลือก Join Land หรือไม่ และแสดง Confirm Box
+        if (joinLand) {
+          var confirmJoinLand = confirm(
+            "ต้องการซื้อบัตรโดยสารเครื่องบินเองใช่หรือไม่?"
+          );
+          if (confirmJoinLand) {
+            alert("คุณเลือกซื้อบัตรโดยสารเครื่องบินเอง");
+          } else {
+            return false;
+          }
+        }
+
+        // หากทุกอย่างถูกต้องให้ส่งฟอร์มได้
+        return true;
+      }
+    </script>
+  </body>
+</html>
